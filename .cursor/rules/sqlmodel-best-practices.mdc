@@ -1,0 +1,45 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# SQLModel Best Practices (Asynchronous)
+
+# 1. Use an async engine and session:
+<!-- - Create your database engine with `create_async_engine` for non-blocking operations.
+- Use `AsyncSession` instead of `Session` to run queries asynchronously.
+- Prefer context managers (`async with AsyncSession(engine) as session:`) to ensure proper transaction handling and automatic cleanup. -->
+
+# 2. Leverage indexing and database constraints:
+- Mark frequently queried fields with `index=True` in your SQLModel fields to enhance performance.
+- Define unique or foreign key constraints explicitly in your models for data integrity and efficient lookups.
+
+# 3. Define relationships with `relationship`:
+- Use SQLModel’s relationship pattern (`Relationship`) to link models.
+- Clearly specify `back_populates` or `backref` for bidirectional relationships when needed.
+- Keep relationships explicit and well-documented for maintainability.
+
+# 4. Eager load related data with `selectinload`:
+- Use eager-loading strategies like `selectinload` (from SQLAlchemy) to minimize N+1 queries and improve performance.
+- Balance eager loading with lazy loading to avoid pulling excessive data unnecessarily.
+
+# 5. Adopt a consistent session pattern in FastAPI:
+- Use a FastAPI dependency to provide an async session to your endpoints (for instance, `with_session` or a custom dependency).
+- Ensure your dependency handles session creation, commitment, and rollback on errors for robust transaction management.
+
+# 6. Implement migrations and versioning:
+- Use Alembic (or a similar tool) alongside SQLModel for database schema migrations.
+- Keep migration scripts organized and tied to specific releases or versions of your application.
+
+# 7. Optimize queries and concurrency:
+- Rely on async CRUD operations and keep calls to blocking libraries minimal to maintain responsiveness.
+- Paginate large result sets using `.limit()`, `.offset()`, or relevant pagination strategies.
+- Consider caching or partial loading strategies for heavy queries or frequently accessed data.
+
+# 8. Ensure proper error handling:
+- Catch and manage database exceptions (e.g., integrity errors, connection issues) to maintain a stable API.
+- Log exceptions and provide clear feedback to the user without exposing sensitive details.
+
+# 9. Keep data models lean and well-structured:
+- Separate your application into logical modules (e.g., `models`, `repositories`, `schemas`) for better maintainability.
+- Keep model definitions focused on database schema and relationships; business logic should reside in separate utilities or service layers.

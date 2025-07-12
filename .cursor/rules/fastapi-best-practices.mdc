@@ -1,0 +1,93 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# FastAPI Best Practices
+
+Below is a consolidated list of best practices for building scalable, maintainable, and performant FastAPI applications. These guidelines combine the original key principles with additional recommendations for using FastAPI, SQLModel, and related tools effectively.
+
+---
+
+## 1. Dependency Injection and Code Organization
+- Rely on FastAPI’s dependency injection system for managing state and shared resources.
+- **Use `Depends`** for dependency injection in routes to enhance code reusability and testability.  
+- Organize code into logical modules (e.g., `routers`, `schemas`, `services`, `utils`).  
+- Structure your routes using **`APIRouter`** to group related endpoints and maintain clarity.
+
+---
+
+## 2. Functional, Declarative Programming
+- **Favor pure functions** (`def`) for business logic when no I/O is performed.  
+- Use **`async def`** for routes or functions performing I/O-bound tasks (e.g., database queries, external API calls).  
+- **Avoid unnecessary classes**; embrace a functional style for clarity and simplicity.
+
+---
+
+## 3. SQLModel for Data Modeling
+- Utilize **SQLModel** for ORM operations, following recommended patterns from the [SQLModel documentation](mdc:https:/sqlmodel.tiangolo.com).  
+- Define data models with `sqlmodel.Field` and leverage SQLModel’s validation features.  
+- When possible, configure an **asynchronous database engine** for non-blocking operations (e.g., `create_async_engine`, async sessions).
+
+---
+
+## 4. Pydantic and Validation
+- Always use **type hints** in function signatures and Pydantic/SQLModel models for validation.  
+- Employ **Response Models** (`response_model`) in FastAPI to ensure consistent, well-defined API responses.  
+- Define custom validation logic and error messages in Pydantic/SQLModel models for clarity and maintainability.
+
+---
+
+## 5. Error Handling and Edge Cases
+- **Use custom exception handlers** and `HTTPException` to provide clear, actionable error responses.  
+- Apply **guard clauses** and **early returns** to handle invalid states or missing data at the start of functions.  
+- Reserve the happy path for the final part of a function, minimizing nested conditionals.  
+- Log errors responsibly, avoiding sensitive information leakage.
+
+---
+
+## 6. Background Tasks and Long-Running Processes
+- **Use `BackgroundTasks`** for any non-critical, time-consuming operations (e.g., sending emails, processing data asynchronously).  
+- Keep your API responsive by delegating heavy tasks to worker processes or queues (e.g., Celery, RQ) when possible.
+
+---
+
+## 7. Performance and Optimization
+- Prioritize API performance metrics (response time, latency, throughput).
+- Embrace **asynchronous** operations for all I/O-bound tasks (database calls, external APIs).  
+- **Minimize blocking I/O**; use async-capable libraries (e.g., `asyncpg`, `aiohttp`).  
+- Employ **caching** (e.g., Redis, in-memory) for frequently accessed data.  
+- Use **lazy loading** and careful pagination for large datasets to improve throughput.
+
+---
+
+## 8. Middleware and Lifespan Management
+- **Prefer lifespan context managers** over `@app.on_event("startup")` and `@app.on_event("shutdown")` for resource initialization and cleanup.  
+- Implement **middleware** for logging, error handling, security checks, and performance monitoring.  
+- Keep middleware slim and focused on cross-cutting concerns (e.g., collecting metrics, adding security headers).
+
+---
+
+## 9. Code Style and Naming Conventions
+- Follow **PEP 8** style guidelines: use `snake_case` for variables and function names.  
+- Use descriptive variable names with auxiliary verbs (e.g., `is_active`, `has_permission`).  
+- Keep file and directory names lowercase with underscores (e.g., `routers/user_routes.py`).  
+- **Receive an Object, Return an Object (RORO)**: prefer returning typed data structures or Pydantic/SQLModel models instead of raw dictionaries.
+
+---
+
+## 10. Testing and Maintainability
+- Write **modular code**: split large tasks into smaller, testable functions.  
+- Use **dependency injection** via `Depends` for mocking and testing.  
+- Keep your **tests** close to your application code, ensuring coverage of routes, models, and critical logic.  
+- Automate test execution in your CI/CD pipeline to maintain code quality.
+
+---
+
+## 11. Security and Reliability
+- Use **FastAPI’s security utilities** (OAuth2, JWT, API keys) where relevant.  
+- Sanitize user input and always **validate** external data.  
+- For advanced data integrity, consider **database transactions** to ensure consistent states.  
+- **Log** essential events (warnings, errors, suspicious behaviors) without exposing private details.
+
+---
