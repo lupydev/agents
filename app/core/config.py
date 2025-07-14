@@ -2,7 +2,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    API: str = "agents/"
+    API: str = "/agents"
     PROJECT_NAME: str = "AI Agents"
 
     # postgres
