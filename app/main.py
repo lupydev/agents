@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from core.config import settings
 from core.db import init_db
 from contextlib import asynccontextmanager
+from api.main import api_router
 
 
 @asynccontextmanager
@@ -16,7 +17,4 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-
-@app.get("/")
-def read_root():
-    return {"message": "Hello agentes"}
+app.include_router(api_router, prefix=settings.API)
