@@ -186,3 +186,7 @@ docker compose up --build
 - Check the logs: `docker compose logs -f`
 - Verify environment variables are set correctly
 - Ensure all prerequisites are installed
+
+### Licence
+
+This project is licensed under the MIT License. See the [LICENSE](LICENCE) file for details.
