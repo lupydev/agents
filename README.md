@@ -2,6 +2,10 @@
 
 A FastAPI-based application for building and managing AI agents with PostgreSQL database integration.
 
+## 🚧 In Construction
+
+Retrieval-augmented generation (RAG), Embeddings and Vector DB
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -37,8 +41,11 @@ POSTGRES_URL="postgresql://your_postgres_user:your_secure_password@localhost:543
 
 # API KEYS
 OPENAI_API_KEY="your_openai_api_key"
-PINECONE_API_KEY="your_pinecone_api_key"
 SERAPI_API_KEY="your_serapi_api_key"
+
+# Pinecone
+PINECONE_API_KEY="your_pinecone_api_key"
+PINECONE_INDEX_NAME="your_pinecone_index_name"
 ```
 
 **Important:** Replace the placeholder values with your actual API keys and database credentials.
@@ -137,14 +144,15 @@ ruff check .
 
 ### Environment Variables
 
-| Variable            | Description                         | Required |
-| ------------------- | ----------------------------------- | -------- |
-| `POSTGRES_USER`     | PostgreSQL username                 | Yes      |
-| `POSTGRES_PASSWORD` | PostgreSQL password                 | Yes      |
-| `POSTGRES_URL`      | PostgreSQL connection URL           | Yes      |
-| `OPENAI_API_KEY`    | OpenAI API key for AI features      | Yes      |
-| `PINECONE_API_KEY`  | Pinecone API key for vector storage | Yes      |
-| `SERAPI_API_KEY`    | SerAPI key for search functionality | Yes      |
+| Variable              | Description                            | Required |
+| --------------------- | -------------------------------------- | -------- |
+| `POSTGRES_USER`       | PostgreSQL username                    | Yes      |
+| `POSTGRES_PASSWORD`   | PostgreSQL password                    | Yes      |
+| `POSTGRES_URL`        | PostgreSQL connection URL              | Yes      |
+| `OPENAI_API_KEY`      | OpenAI API key for AI features         | Yes      |
+| `SERAPI_API_KEY`      | SerAPI key for search functionality    | Yes      |
+| `PINECONE_API_KEY`    | Pinecone API key for vector storage    | Yes      |
+| `PINECONE_INDEX_NAME` | Pinecone index name for vector storage | Yes      |
 
 ## 📚 API Documentation
 
