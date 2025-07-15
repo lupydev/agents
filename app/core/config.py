@@ -15,6 +15,7 @@ class Settings(BaseSettings):
 
     # PINECONE
     PINECONE_API_KEY: str
+    PINECONE_INDEX_NAME: str
 
     # SEARCHAPI
     SERAPI_API_KEY: str
