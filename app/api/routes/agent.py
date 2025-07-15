@@ -11,7 +11,8 @@ router = APIRouter()
     response_model=AgentResponse,
     status_code=status.HTTP_200_OK,
 )
-@limiter.limit("3/day")
+# Permite 5 consultas por día
+@limiter.limit("5/day")
 async def get_basic_response(
     request: Request,
     agent_request: AgentRequest,
